@@ -1,11 +1,12 @@
 package com.bridgelabz.greetingapp.controller;
 
 import com.bridgelabz.greetingapp.model.Greeting;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import com.bridgelabz.greetingapp.service.GreetingService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +36,16 @@ public class GreetingController {
     @GetMapping("/greetings")
     public List<Greeting> getAllGreetings() {
         return greetingService.getAllGreetings();
+    }
+
+    @PutMapping("/greeting/{id}")
+    public Greeting updateGreeting(@PathVariable Long id,
+                                   @RequestBody Greeting updatedGreeting) {
+        return greetingService.updateGreeting(id, updatedGreeting.getMessage());
+    }
+
+    @DeleteMapping("/greeting/{id}")
+    public String deleteGreeting(@PathVariable Long id) {
+        return greetingService.deleteGreeting(id);
     }
 }
